@@ -1,7 +1,7 @@
 const User = require("../models/user");
 const crypto = require("crypto");
 const nodemailer = require("nodemailer");
-const Token = require("../models/Token");
+const Token = require("../models/token");
 const Order = require("../models/order");
 const Cart = require("../models/cart");
 
