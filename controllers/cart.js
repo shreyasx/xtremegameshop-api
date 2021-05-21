@@ -62,19 +62,14 @@ const removeFromCart = (req, res) => {
 	});
 };
 
-const getProducts = (req, res) => {
+const getProducts = async (req, res) => {
 	const { id } = req.body;
-	Cart.findOne({ user: id }, (er, cart) => {
-		if (er) {
-			console.log(er);
-			return;
-		}
-		if (!cart) {
-			res.json([]);
-		} else {
-			res.json(cart.products);
-		}
-	});
+	const cart = await Cart.findOne({ user: id });
+	if (!cart) {
+		res.json([]);
+	} else {
+		res.json(cart.products);
+	}
 };
 
 const empty = (req, res) => {

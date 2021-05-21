@@ -4,6 +4,7 @@ const _ = require("lodash");
 const fs = require("fs");
 const { sortBy } = require("lodash");
 const { update } = require("../models/product");
+const category = require("../models/category");
 
 exports.getProductById = (req, res, next, id) => {
 	Product.findById(id)
@@ -152,17 +153,6 @@ exports.getAllProducts = (req, res) => {
 				.map(_ => products.splice(0, n));
 			res.json(old);
 		});
-};
-
-exports.getAllUniqueCategories = (req, res) => {
-	Product.distinct("category", {}, (err, category) => {
-		if (err) {
-			return res.status(400).json({
-				error: "NO categories found",
-			});
-		}
-		res.json(category);
-	});
 };
 
 exports.updateStock = (req, res, next) => {

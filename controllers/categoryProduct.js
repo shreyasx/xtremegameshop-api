@@ -1,26 +1,21 @@
 const Product = require("../models/product");
 const Category = require("../models/category");
 
-exports.getCategories = (req, res) => {
-	Category.find({}, (er, cs) => {
-		if (er) {
-			console.log(er);
-			return;
-		}
-		res.json(cs);
+exports.getCategories = async (req, res) => {
+	const categories = await Category.find({});
+	const resp = categories.map(category => {
+		const { _id, name } = category;
+		return { _id, name };
 	});
+	res.json(resp);
 };
 
-exports.getProducts = (req, res) => {
-	const { categ } = req.query;
-	Category.findOne({ _id: categ }, (er, category) => {
-		Product.find({ category: category._id }, (err, prods) => {
-			res.json(
-				prods.map(p => {
-					const { name, price, _id, stock } = p;
-					return { name, price, _id, stock };
-				})
-			);
-		});
+exports.getProducts = async (req, res) => {
+	const { category } = req.query;
+	const response = await Product.find({ category });
+	const resp = response.map(product => {
+		const { name, price, _id, description, stock } = product;
+		return { name, price, _id, description, stock };
 	});
+	res.json(resp);
 };
