@@ -5,6 +5,7 @@ const app = express();
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const helmet = require("helmet");
+const compression = require("compression");
 
 //My routes
 const authRoutes = require("./routes/auth");
@@ -32,6 +33,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(cors());
 app.use(helmet());
+app.use(compression());
 
 //My Routes
 app.use("/api", authRoutes);
@@ -43,7 +45,7 @@ app.use("/api", paymentRoutes);
 app.use("/api", cartRoutes);
 
 //Port
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 6000;
 
 //Starting a server
 app.listen(port, () => {
