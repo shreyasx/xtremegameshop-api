@@ -7,7 +7,6 @@ const cors = require("cors");
 const helmet = require("helmet");
 const compression = require("compression");
 
-//My routes
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
 const categoryRoutes = require("./routes/category");
@@ -27,7 +26,6 @@ mongoose
 		console.log("MongoDB connected.");
 	});
 
-//Middlewares
 const whitelist = [
 	"https://xtremegameshop.netlify.app",
 	"http://localhost:3000",
@@ -49,7 +47,6 @@ app.use(cookieParser());
 app.use(helmet());
 app.use(compression());
 
-//My Routes
 app.use("/api", authRoutes);
 app.use("/api", userRoutes);
 app.use("/api", categoryRoutes);
@@ -58,10 +55,8 @@ app.use("/api", orderRoutes);
 app.use("/api", paymentRoutes);
 app.use("/api", cartRoutes);
 
-//Port
 const port = process.env.PORT || 5000;
 
-//Starting a server
 app.listen(port, () => {
 	console.log(`Server on port ${port}.`);
 });
